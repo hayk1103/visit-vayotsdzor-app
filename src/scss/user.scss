@@ -1,0 +1,39 @@
+.user-bg{
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+.user-bg  img {
+    height: 180px;
+    width: 200px;
+    border-radius: 15%;
+}
+
+.all-activity {
+    background-color: #e7c3bb;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 20px;
+}
+.all-activity img {
+    vertical-align: middle;
+    height: 100px;
+    width: 120px;
+    border-radius: 5%;
+}
+.activity-body{
+    display: flex;
+    justify-content: space-around;
+    width: 65%;
+}
+
+.show-activity {
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    z-index: 1;
+    width: 800px !important;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: rgb(206, 198, 233);
+}
