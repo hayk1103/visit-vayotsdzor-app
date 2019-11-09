@@ -122,9 +122,9 @@ const App = () => {
                 <Route path = "/other-events"> <OtherEvents/>  </Route>
                 <Route path = "/sign-in"> <SignIn getUser={getUser}/> </Route>
                 <Route path = "/sign-up"> <SignUp/> </Route>
-                {/* {user && ( */}
+                {user && (
                     <Route path = "/settings"> <EmployeeSetting/> </Route>
-                {/* )} */}
+                )}
             </Switch>
             <footer className="pt-4 site-footer">
                 <div className="container" id = "footer">

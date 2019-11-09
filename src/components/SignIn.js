@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import Password from './Password'
 import EmployeeSettings from './EmployeeSetting'
 
-const SignIn = () => {
+const SignIn = ({ getUser }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -40,6 +40,7 @@ const SignIn = () => {
                 localStorage.setItem('token', item.token.access)
                 localStorage.setItem('id', item.user.id)
                 showSettings(true)
+                getUser()
             })
         })
         .catch(e => {

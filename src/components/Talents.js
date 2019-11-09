@@ -14,7 +14,7 @@ const Talents = () => {
         const offset = (page-1) * limit
 
         axios
-            .get(`http://localhost:3020/v1/users?limit=${limit}&offset=${offset}`)
+            .get(`http://localhost:3020/v1/users`, { params: { limit, offset, type: 'employee' } })
             .then(response => {
                 // response.data.users.forEach(user => {
                 //     if(user.accountType === 'employee'){
