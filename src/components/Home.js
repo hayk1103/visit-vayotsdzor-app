@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { BrowserRouter, NavLink,  Link} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import Talents from './Talents'
 import Jobs from './Jobs'
 
@@ -25,37 +25,33 @@ const Home = () => {
                             </p>
                         </div>
                         <div className = "p-2 button_margin">
-                        <BrowserRouter>
-                            <button 
-                                type="button" 
-                                className="btn btn-dark mx-auto" 
-                                onClick = {() => {showJobs(true)}}>
-                                    <NavLink to='/jobs' 
-                                        style = {{color: 'white'}}>
-                                            Find Job
-                                    </NavLink> 
-                            </button>
-                            <button 
-                                type="button" 
-                                className="btn btn-dark" 
-                                onClick = {() => {showTalents(true)}}>
-                                    <Link to='/talents'
-                                        style = {{color: 'white'}}>
-                                            Find Talents
-                                    </Link>
-                            </button>
-                        </BrowserRouter>
+                            <Link to='/jobs' style = {{color: 'white'}}>
+                                <button 
+                                    type="button" 
+                                    className="btn btn-dark mx-auto">
+                                    Find Job
+                                </button>
+                            </Link> 
+                        <button 
+                            type="button" 
+                            className="btn btn-dark" 
+                            onClick = {() => {showTalents(true)}}>
+                                <Link to='/talents'
+                                    style = {{color: 'white'}}>
+                                        Find Talents
+                                </Link>
+                        </button>
                         </div>
                     </div>
                 </div>
          </main>)}
 
-        {jobs &&(
+        {/* {jobs &&(
             <Jobs/>
         )}
         {talents && (
             <Talents/>
-        )}
+        )} */}
         </div>
     )
 }
