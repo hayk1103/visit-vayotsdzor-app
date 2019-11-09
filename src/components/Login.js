@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 import { BrowserRouter, Link, Switch, Route, useHistory } from 'react-router-dom'
-import UserAccount from './UserAccount'
+import UserAccount from './Account'
 import axios from 'axios'
 
-const SignIn = ({ getUser }) => {
+const Login = ({ getUser }) => {
     const [account, setAccount]  = useState(false)
     const [user, setUser] = useState({
         username: '',
@@ -73,4 +73,4 @@ const SignIn = ({ getUser }) => {
             </div>
         )
 }
-export default SignIn
+export default Login

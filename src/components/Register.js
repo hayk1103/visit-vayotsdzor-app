@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {  useHistory } from 'react-router-dom'
 import axios from 'axios'
 
-const SignUp = () => {
+const Register = () => {
     const [user, setUser] = useState({
         username: '',
         fullName: '',
@@ -86,4 +86,4 @@ const SignUp = () => {
         </div>       
     )
 }
-export default SignUp
+export default Register

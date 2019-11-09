@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
+import './index.scss'
 
-const UserAccount = ({
+const Account = ({
     user,
     updateUser,
 }) => {
@@ -32,7 +33,7 @@ const UserAccount = ({
     }, [])
         
     return (
-        <div>
+        <div id="account-page">
             <div className="user-bg p-2">
                 <div className="w-50 d-flex justify-content-between">
                     <label>
@@ -106,4 +107,4 @@ const UserAccount = ({
     </div>
     )
 }
-export default UserAccount
+export default Account

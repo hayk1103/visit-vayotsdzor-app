@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
+import './index.scss'
 
-const UserAccount = ({
+const Settings = ({
     user, 
     updateUser 
 }) => {
@@ -179,6 +180,6 @@ const UserAccount = ({
         </div>
     )
 }
-export default UserAccount
+export default Settings
 
  

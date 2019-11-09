@@ -5,12 +5,12 @@ import { BrowserRouter, Link, Switch, Route } from 'react-router-dom'
 import axios from 'axios'
 
 import Home from './Home'
-import SignIn from './SignIn'
-import SignUp from './SignUp'
-import UserAccount from './UserAccount'
+import Login from './Login'
+import Register from './Register'
+import Account from './Account'
 import Activity from './Activity'
-import AllActivtie from './AllActivities'
-import UserSetting from './UserSetting'
+import Activities from './Activities'
+import Settings from './Settings'
 import CreateActivity from './CreateActivity'
 
 const withRouter = Component => (props) => {
@@ -22,16 +22,13 @@ const withRouter = Component => (props) => {
 }
 
 const App = () => {
-    const [user, setUser]  = useState(null)
+    const [user, setUser] = useState(null)
     const history = useHistory()
     const location = useLocation()
+
     const getUser = () => {
         axios
-            .get('http://localhost:3001/api/user', {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            })
+            .get('http://localhost:3001/api/user', {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
             .then(response => {
                 localStorage.setItem('user', response.data.user)
                 setUser(response.data.user)
@@ -41,15 +38,10 @@ const App = () => {
 
     const updateUser = (user) => {
         axios
-            .put('http://localhost:3001/api/user', user, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            })
+            .put('http://localhost:3001/api/user', user, {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
             .then(() => getUser())
             .catch(console.log)
     }
-
 
     const logout = (e) => {
         e.preventDefault()
@@ -159,41 +151,34 @@ const App = () => {
             <Switch>
                 <Route exact path="/">
                     <Home/>
-                    </Route>
-                {user && (
-                    <Route  key={`user-info`} path="/user">
-                        <UserAccount 
+                </Route>
+                {user && ([
+                    <Route key="user" path="/user">
+                        <Account 
                             user={user}
                             setUser={setUser}
                             updateUser={updateUser}/>
+                    </Route>,
+                    <Route key="account-settings" path='/account-setting'>
+                        <Settings
+                            user={user}
+                            updateUser={updateUser}/>
                     </Route>
-                )}
-                {user && (
-                        <Route key={`user-setting`} path='/account-setting'>
-                            <UserSetting 
-                                user={user}
-                                updateUser={updateUser}
-                            />
-                        </Route>
-                    )
-                }
-                <Route  path="/signin">
-                    <SignIn 
-                        getUser={getUser}
-                    />
+                ])}
+                <Route path="/signin">
+                    <Login getUser={getUser}/>
                 </Route>
                 <Route path="/signup">
-                    <SignUp />
+                    <Register/>
                 </Route>
                 <Route path="/all-activity">
-                    <AllActivtie/>
+                    <Activities/>
                 </Route>
                 <Route path="/activities/:id">
-                    <Activity 
-                        user={user}/>
+                    <Activity user={user}/>
                 </Route>
                 <Route path="/create-activity">
-                    <CreateActivity />
+                    <CreateActivity/>
                 </Route>
             </Switch>
         </div>

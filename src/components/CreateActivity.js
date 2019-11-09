@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-const CreateActivity = () => {
 
+const CreateActivity = () => {
     const history = useHistory()
 
     const [activity, setActivity] = useState({
@@ -14,23 +14,20 @@ const CreateActivity = () => {
         gallery: '',
         category: ''
     })
+
     const createActivity = () => {
         axios
             .post('http://localhost:3001/api/activity',  activity, {headers: {'Authorization': localStorage.token}})
-            .then(data => {
-                console.log(data)
-                history.push('/user')
-            })
+            .then(data => history.push('/user'))
             .catch(console.log)
     }
+
     const onImageUpload = (e) => {
         const data = new FormData()
         data.append('image', e.target.files[0])
         axios
             .post('http://localhost:3001/api/image', data, {headers: {'Authorization': localStorage.token}})
-            .then(response => {
-                setActivity({...activity, image: response.data.file.path })
-            })
+            .then(response => setActivity({...activity, image: response.data.file.path }))
             .catch(console.log)
     }
 
