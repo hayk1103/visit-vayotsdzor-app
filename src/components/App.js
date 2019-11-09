@@ -23,7 +23,6 @@ const withRouter = Component => (props) => {
 
 const App = () => {
     const [user, setUser]  = useState(null)
-    const [activityId, setActivityId] = useState(null)
     const history = useHistory()
     const location = useLocation()
     const getUser = () => {
@@ -139,11 +138,6 @@ const App = () => {
                                 </Link>
                             </li>
                         ])}
-                        {activityId && (
-                                <Link to={`/activities/:id`}>
-                                </Link>
-                            )
-                        }
                         <Link to="/create-activity">
                         </Link>
                     </ul>
@@ -171,8 +165,7 @@ const App = () => {
                         <UserAccount 
                             user={user}
                             setUser={setUser}
-                            updateUser={updateUser}
-                            setActivityId={setActivityId}/>
+                            updateUser={updateUser}/>
                     </Route>
                 )}
                 {user && (
@@ -193,17 +186,12 @@ const App = () => {
                     <SignUp />
                 </Route>
                 <Route path="/all-activity">
-                    <AllActivtie 
-                     setActivityId={setActivityId}/>
+                    <AllActivtie/>
                 </Route>
-                {
-                    activityId  && (
-                        <Route path={`/activities/:id`}>
-                            <Activity 
-                                user={user}/>
-                        </Route>
-                    )
-                }
+                <Route path="/activities/:id">
+                    <Activity 
+                        user={user}/>
+                </Route>
                 <Route path="/create-activity">
                     <CreateActivity />
                 </Route>

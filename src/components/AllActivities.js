@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import '../scss/user.scss'
-const AllActivtie = ({setActivityId}) => {
+const AllActivtie = () => {
     const [activities, setActivities] = useState(null)
     const history = useHistory()
 
@@ -12,12 +12,6 @@ const AllActivtie = ({setActivityId}) => {
             .get('http://localhost:3001/api/activities')
             .then(response => setActivities(response.data.activities))
             .catch(console.log)
-    }
-
-    const getOne = (id) => {
-
-        setActivityId(id)
-        history.push(`/activities/${id}`)
     }
 
     useEffect(() => {
@@ -48,9 +42,11 @@ const AllActivtie = ({setActivityId}) => {
                                     <span> { activity.likesCount } </span>
                                 </div>
                                 <div>
-                                    <button className="btn btn-light mt-4" onClick={() => getOne(activity._id)}> 
-                                        View more
-                                    </button>
+                                    <Link to={`/activities/${activity._id}`}>
+                                        <button className="btn btn-light mt-4">
+                                            View more
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

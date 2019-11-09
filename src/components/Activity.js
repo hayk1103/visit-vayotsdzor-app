@@ -2,32 +2,24 @@ import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+
 const Activity = ({ user })  => {
     const { id } = useParams()
     const history = useHistory()
-
     const [activity, setActivity] = useState(null)
     const [showEditActivity, setShowEditActivity] = useState(false)
 
-
     const getOneActivity = () => {
         axios
-            .get(`http://localhost:3001/api/activity?activityId=${id}`, 
-            { headers: {'Authorization': localStorage.token }
-            })
-            .then((response) => {
-                setActivity(response.data.activities[0])
-            })
+            .get(`http://localhost:3001/api/activity?activityId=${id}`, { headers: {'Authorization': localStorage.token }})
+            .then((response) => setActivity(response.data.activity))
             .catch(console.log)
-        }
+    }
+
     const deleteActivity = (id) => {
         axios
-            .delete(`http://localhost:3001/api/activity?activityId=${id}`, 
-            {headers: {'Authorization': localStorage.token}
-            })
-            .then(data => {
-                history.push('/user')
-            })
+            .delete(`http://localhost:3001/api/activity?activityId=${id}`, {headers: {'Authorization': localStorage.token}})
+            .then(data => history.push('/user'))
             .catch(console.log)
     }
 
@@ -35,10 +27,8 @@ const Activity = ({ user })  => {
         getOneActivity()
     }, [])
 
-
-
     return ( 
-        <div >
+        <div>
             {activity && 
                 <div className="row">
                     <div className="col-md-4 mt-4">
@@ -61,7 +51,7 @@ const Activity = ({ user })  => {
                                     <small className="text-muted"> 
                                         { activity.tags }
                                     </small>
-                                    {activity.creator === user._id  && (
+                                    {user && activity.creator === user._id  && (
                                         <div className="mt-5">
                                             <button 
                                                 className="btn btn-primary mr-4" 

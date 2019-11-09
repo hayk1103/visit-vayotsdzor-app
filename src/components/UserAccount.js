@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 
 const UserAccount = ({
     user,
     updateUser,
-    setActivityId
 }) => {
     const [activities, setActivities] = useState(null)
     const history = useHistory()
@@ -27,11 +26,6 @@ const UserAccount = ({
             })
             .catch(console.log)
     }
-    
-    const getOne = (id) => {
-        setActivityId(id)
-        history.push(`/activities/${id}`)
-    }
 
     useEffect(() => {
         getActivity()
@@ -45,8 +39,7 @@ const UserAccount = ({
                         <input 
                             type="file"
                             className="d-none"
-                            onChange={onImageUpload}
-                            />
+                            onChange={onImageUpload}/>
                         {user.avatar ? (
                             <img 
                                 src={`http://localhost:3001/${user.avatar}`} 
@@ -97,9 +90,11 @@ const UserAccount = ({
                                             <span> { activity.likesCount } </span>
                                         </div>
                                         <div>
-                                            <button className="btn btn-light mt-4" onClick={() => getOne(activity._id)}> 
-                                                View more
-                                            </button>
+                                            <Link to={`/activities/${activity._id}`}>
+                                                <button className="btn btn-light mt-4">
+                                                    View more
+                                                </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
