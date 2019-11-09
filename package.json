@@ -1,16 +1,17 @@
 {
-  "name": "visit-vayotsdzor-app",
+  "name": "visit-vayotsdzor-front",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "dev": "webpack-dev-server"
+    "start": "webpack-dev-server --watch"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2"
@@ -21,9 +22,10 @@
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
     "node-sass": "^4.13.0",
-    "sass-loader": "^7.3.1",
+    "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.9.0"
   }
 }

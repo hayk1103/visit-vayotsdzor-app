@@ -1,6 +1,8 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDom from 'react-dom'
 import App from './components/App'
-import './scss/template.scss'
+import './scss/main.scss'
+import './scss/user.scss'
+import './scss/setting.scss'
 
-ReactDOM.render(<App/>, document.querySelector('#app'))
+ReactDom.render(<App />, document.querySelector('#app'))
