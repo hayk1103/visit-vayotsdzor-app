@@ -12,6 +12,7 @@ import Activity from './Activity'
 import Activities from './Activities'
 import Settings from './Settings'
 import CreateActivity from './CreateActivity'
+import Chat from './Chat'
 
 const withRouter = Component => (props) => {
     return (
@@ -109,8 +110,13 @@ const App = () => {
                             </li>
                         ])}
 
-                        {user ? (
-                            <li className="nav-item">
+                        {user ? ([
+                            <li key="chat" className="nav-item">
+                                <Link to='/chat' className="nav-link">
+                                    Chat
+                                </Link>
+                            </li>,
+                            <li key="logout" className="nav-item">
                                 <a 
                                     className="nav-link" 
                                     href="#"
@@ -118,7 +124,7 @@ const App = () => {
                                         Logout
                                 </a>
                             </li>
-                        ) : ([
+                        ]) : ([
                             <li key="sign-in" className="nav-item">
                                 <Link to='/signin' className="nav-link">
                                     Sign in
@@ -179,6 +185,9 @@ const App = () => {
                 </Route>
                 <Route path="/create-activity">
                     <CreateActivity/>
+                </Route>
+                <Route path="/chat">
+                    <Chat/>
                 </Route>
             </Switch>
         </div>
