@@ -1,45 +1,55 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from 'react' 
 import axios from 'axios'
 
-const CreateActivity = () => {
-    const history = useHistory()
-
-    const [activity, setActivity] = useState({
-        title: '',
-        location: '',
-        image: '',
-        description: '',
-        hastag: '',
-        gallery: '',
-        category: ''
+const Edit = ({ 
+        activity, 
+        setShowEditButton,
+        getOneActivity
+    }) => {
+    const [changedActivity, setChangedActivity] = useState({
+        title: activity.title,
+        location: activity.location,
+        image: activity.image,
+        description: activity.description,
+        tags: activity.tags,
+        category: activity.category
     })
-
-    const createActivity = () => {
-        axios
-            .post('http://localhost:3001/api/activity',  activity, {headers: {'Authorization': localStorage.token}})
-            .then(data => history.push('/user'))
-            .catch(console.log)
-    }
 
     const onImageUpload = (e) => {
         const data = new FormData()
         data.append('image', e.target.files[0])
         axios
             .post('http://localhost:3001/api/image', data, {headers: {'Authorization': localStorage.token}})
-            .then(response => setActivity({...activity, image: response.data.file.path }))
+            .then(response => setChangedActivity({...changedActivity, image: response.data.file.path }))
+            .catch(console.log)
+    }
+    const updateActivty = (id) => {
+        console.log(localStorage.token)
+        axios
+            .put(`http://localhost:3001/api/activity?activityId=${id}`, changedActivity, {headers: {'Authorization': localStorage.token}})
+            .then(response =>  {
+                getOneActivity()
+                setShowEditButton(false)
+            })
             .catch(console.log)
     }
 
-    return ( 
-        <div className="d-flex justify-content-center">
-            <div className="container">
-                <div className="d-flex justify-content-center mt-5"> 
-                    <h3> Create Your Activity </h3>
-                </div>
-                <div className="card-body">
+    return (
+        <div className="show-activity container"> 
+            <div className="d-flex justify-content-center">
+                <h1>
+                    Change your activity
+                </h1>
+            </div>
+            <button 
+            className="close btn"
+            onClick={() => setShowEditButton(false)}>
+                X 
+            </button>
+            <div className="d-flex justify-content-center mt-4">
+                <div className="w-75">
                     <div className="input-group mb-3">
-                    <div className="input-group-prepend">
+                        <div className="input-group-prepend">
                             <label 
                                 className="input-group-text label-text"
                                 htmlFor="title">
@@ -48,38 +58,37 @@ const CreateActivity = () => {
                         </div>
                         <input 
                             type="text" 
-                            className="form-control" 
-                            placeholder="Tilte" 
-                            id="title"
-                            onChange={(e) => setActivity({...activity, title: e.target.value})} 
-                            required/>
+                            value={changedActivity.title}
+                            className="form-control"
+                            id='title'
+                            onChange={(e) =>  {
+                                setChangedActivity({...changedActivity, title: e.target.value})
+                            }}/>
                     </div>
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
                             <label 
-                                className="input-group-text label-text"
+                                className="input-group-text label-text" 
                                 htmlFor="location">
                                 Activity location
                             </label>
                         </div>
                         <input 
                             type="text" 
-                            className="form-control" 
-                            placeholder="Location" 
+                            value={changedActivity.location}
+                            className="form-control"
                             id="location"
-                            onChange={(e) =>  setActivity({...activity, location: e.target.value})}
-                            required/>
+                            onChange={(e) =>  setChangedActivity({...changedActivity, location: e.target.value})}/>
                     </div>
                     <div className="input-group mb-3">
-                        <div className="custom-file" >
+                        <div className="custom-file">
                             <input 
                                 type="file" 
                                 className="custom-file-input" 
                                 name="image" 
                                 id="inputGroupFile01" 
-                                aria-describedby="inputGroupFileAddon01" 
-                                onChange={(e) => onImageUpload(e)} 
-                                required/>
+                                aria-describedby="inputGroupFileAddon01"
+                                onChange={(e) => onImageUpload(e)}/>
                             <label 
                                 className="custom-file-label" 
                                 htmlFor="inputGroupFile01">
@@ -90,46 +99,46 @@ const CreateActivity = () => {
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
                             <label 
-                                className="input-group-text label-text"
-                                htmlFor="desription">
+                                className="input-group-text label-text" 
+                                htmlFor="description">
                                 Activity description
                             </label>
-                        </div>                       
-                         <input 
+                        </div>
+                        <textarea 
                             type="text" 
-                            className="form-control" 
-                            placeholder="Description" 
+                            value={changedActivity.description}
+                            className="form-control"
                             id="description"
-                            onChange={(e) =>  setActivity({...activity, description: e.target.value})}
-                            required/>
+                            onChange={(e) =>  setChangedActivity({...changedActivity, description: e.target.value})}>
+                        </textarea>
                     </div>
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
                             <label 
-                                className="input-group-text label-text"
+                                className="input-group-text label-text" 
                                 htmlFor="hashtags">
                                 Activity hashtags
                             </label>
                         </div>
                         <input 
                             type="text" 
+                            value={changedActivity.tags}
                             className="form-control" 
-                            placeholder="Hashtag" 
                             id="hashtags"
-                            onChange={(e) =>  setActivity({...activity, hastag: e.target.value})}/>
+                            onChange={(e) =>  setChangedActivity({...changedActivity, tags: e.target.value})}/>
                     </div>
                     <div className="input-group mb-3">
-                        <div className="input-group-prepend">
+                    <div className="input-group-prepend">
                             <label 
-                                className="input-group-text label-text"
+                                className="input-group-text label-text" 
                                 htmlFor="category">
-                                Activity category
+                                Activity hashtags
                             </label>
                         </div>
                         <select 
                             className="form-control" 
                             id="category"
-                            onChange={(e) => console.log(e.target.value)}>
+                            onChange={(e) => setChangedActivity({...changedActivity, category: e.target.value})}>
                             <option> Travel </option>
                             <option> Nature </option>
                             <option> Adventure </option>
@@ -140,9 +149,9 @@ const CreateActivity = () => {
                     <div className="d-flex justify-content-center mt-2">
                         <button 
                             type="submit" 
-                            className="btn btn-sign" 
-                            onClick={createActivity}> 
-                            Create 
+                            className="btn btn-sign"
+                            onClick={() => updateActivty(activity._id)}> 
+                            Change 
                         </button>
                     </div>
                 </div>
@@ -150,4 +159,4 @@ const CreateActivity = () => {
         </div>
     )
 }
-export default CreateActivity
+export default Edit

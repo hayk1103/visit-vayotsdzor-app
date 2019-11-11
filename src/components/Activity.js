@@ -1,13 +1,14 @@
-import React from 'react' 
-import axios from 'axios'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react' 
 import { useParams, useHistory } from 'react-router-dom'
+import Edit from './Edit'
+import axios from 'axios'
 
 const Activity = ({ user })  => {
     const { id } = useParams()
     const history = useHistory()
     const [activity, setActivity] = useState(null)
-    const [showEditActivity, setShowEditActivity] = useState(false)
+    const [showEditButton, setShowEditButton] = useState(false)
+
 
     const getOneActivity = () => {
         axios
@@ -23,10 +24,11 @@ const Activity = ({ user })  => {
             .catch(console.log)
     }
 
+  
     useEffect(() => {
         getOneActivity()
     }, [])
-
+    console.log(activity)
     return ( 
         <div>
             {activity && 
@@ -48,8 +50,11 @@ const Activity = ({ user })  => {
                                     <p className="card-text mb-4">
                                         {activity.description}
                                     </p>
-                                    <small className="text-muted"> 
+                                    <small className="text-muted mr-5"> 
                                         { activity.tags }
+                                    </small>
+                                    <small className="text-muted"> 
+                                        { activity.category }
                                     </small>
                                     {user && activity.creator === user._id  && (
                                         <div className="mt-5">
@@ -60,7 +65,7 @@ const Activity = ({ user })  => {
                                             </button>
                                             <button 
                                             className="btn btn-primary"
-                                            onClick={() => setShowEditActivity(true)}>  
+                                            onClick={() => setShowEditButton(true)}>  
                                                 edit
                                             </button>
                                         </div>
@@ -79,7 +84,15 @@ const Activity = ({ user })  => {
                     </div>
                 </div>
                 }
-                {showEditActivity && (
+                {
+                    showEditButton && (
+                        <Edit 
+                        activity={activity}
+                        setShowEditButton={setShowEditButton}
+                        getOneActivity={getOneActivity}/>
+                    )
+                }
+                {/* {showEditButton && (
                     <div className="show-activity container"> 
                         <div className="d-flex justify-content-center">
                             <h1>
@@ -88,7 +101,7 @@ const Activity = ({ user })  => {
                         </div>
                         <button 
                         className="close btn"
-                        onClick={() => setShowEditActivity(false)}>
+                        onClick={() => setShowEditButton(false)}>
                             X 
                         </button>
                         <div className="d-flex justify-content-center mt-4">
@@ -96,17 +109,22 @@ const Activity = ({ user })  => {
                                 <div className="input-group mb-3">
                                     <input 
                                         type="text" 
-                                        className="form-control" 
-                                        placeholder="Tilte" />
+                                        // value={activity.title}
+                                        className="form-control"
+                                        onChange={(e) =>  {
+                                            console.log(e.target.value)
+                                            setChangedActivity({...changedActivity, title: e.target.value})
+                                        }}/>
                                 </div>
                                 <div className="input-group mb-3">
                                     <input 
                                         type="text" 
-                                        className="form-control" 
-                                        placeholder="Location" />
+                                        value={activity.location}
+                                        className="form-control"
+                                        onChange={(e) =>  setChangedActivity({...changedActivity, location: e.target.value})}/>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <div className="custom-file" >
+                                    <div className="custom-file">
                                         <input 
                                             type="file" 
                                             className="custom-file-input" 
@@ -123,32 +141,36 @@ const Activity = ({ user })  => {
                                 <div className="input-group mb-3">
                                     <input 
                                         type="text" 
-                                        className="form-control" 
-                                        placeholder="Description"/>
+                                        value={activity.description}
+                                        className="form-control"
+                                        onChange={(e) =>  setChangedActivity({...changedActivity, description: e.target.value})}/>
                                 </div>
                                 <div className="input-group mb-3">
                                     <input 
                                         type="text" 
+                                        value={activity.hastag}
                                         className="form-control" 
-                                        placeholder="Hashtag"/>
+                                        onChange={(e) =>  setChangedActivity({...changedActivity, hastag: e.target.value})}/>
                                 </div>
                                 <div className="input-group mb-3">
                                     <input 
                                         type="text" 
+                                        value={activity.category}
                                         className="form-control" 
-                                        placeholder="Category"/>
+                                        onChange={(e) =>  setChangedActivity({...changedActivity, category: e.target.value})}/>
                                 </div>
                                 <div className="d-flex justify-content-center mt-2">
                                     <button 
                                         type="submit" 
-                                        className="btn btn-sign"> 
-                                        Create 
+                                        className="btn btn-sign"
+                                        onClick={() => updateActivty(activity._id)}> 
+                                        Change 
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                )}
+                )} */}
             </div>
         )
 }

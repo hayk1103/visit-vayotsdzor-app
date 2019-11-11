@@ -110,5 +110,20 @@ body {
     right: 4%;
     font-size: 20px;
 }
+.show-activity {
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    z-index: 1;
+    width: 800px !important;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: rgb(206, 198, 233);
+
+}
+.label-text {
+    width: 150px;
+    border-radius: 10px;
+}
 
 
