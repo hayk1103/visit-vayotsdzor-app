@@ -18,7 +18,7 @@ const CreateActivity = () => {
     const createActivity = () => {
         axios
             .post('http://localhost:3001/api/activity',  activity, {headers: {'Authorization': localStorage.token}})
-            .then(data => history.push('/user'))
+            .then(() => history.push('/user'))
             .catch(console.log)
     }
 
@@ -129,7 +129,7 @@ const CreateActivity = () => {
                         <select 
                             className="form-control" 
                             id="category"
-                            onChange={(e) => console.log(e.target.value)}>
+                            onChange={(e) => setActivity({...activity, category: e.target.value})}>
                             <option> Travel </option>
                             <option> Nature </option>
                             <option> Adventure </option>

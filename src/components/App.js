@@ -13,6 +13,7 @@ import Activities from './Activities'
 import Settings from './Settings'
 import CreateActivity from './CreateActivity'
 import Chat from './Chat'
+import User from './User'
 
 const withRouter = Component => (props) => {
     return (
@@ -24,6 +25,7 @@ const withRouter = Component => (props) => {
 
 const App = () => {
     const [user, setUser] = useState(null)
+    const [otherUser, setOtherUser ] = useState(null)
     const history = useHistory()
     const location = useLocation()
 
@@ -181,13 +183,18 @@ const App = () => {
                     <Activities/>
                 </Route>
                 <Route path="/activities/:id">
-                    <Activity user={user}/>
+                    <Activity 
+                    user={user}
+                    setOtherUser={setOtherUser}/>
                 </Route>
                 <Route path="/create-activity">
                     <CreateActivity/>
                 </Route>
                 <Route path="/chat">
-                    <Chat/>
+                    <Chat />
+                </Route>
+                <Route path="/other/user/:username">
+                    <User otherUser={otherUser}/>
                 </Route>
             </Switch>
         </div>

@@ -38,7 +38,7 @@ const Activities = () => {
                                 </i> 
                                 <span> { activity.likesCount } </span>
                             </div>
-                            <div>
+                            <div >
                                 <Link to={`/activities/${activity._id}`}>
                                     <button className="btn btn-light mt-4">
                                         View more
