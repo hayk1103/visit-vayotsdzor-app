@@ -26,6 +26,8 @@ const withRouter = Component => (props) => {
 const App = () => {
     const [user, setUser] = useState(null)
     const [otherUser, setOtherUser ] = useState(null)
+    const [search, setSearch] = useState(null)
+    const [activities, setActivity] = useState(null)
     const history = useHistory()
     const location = useLocation()
 
@@ -56,13 +58,23 @@ const App = () => {
             history.push('/')
         }
     }
+    const getActivities = () => {
+        console.log(search)
+        axios   
+            .get(`http://localhost:3001/api/activity/search?search=${search}`)
+            .then(response => {
+                setActivity(response.data.data)
+                history.push('/all-activity')
+            })
+            .catch(console.log)
+        }
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
             getUser()
         }
     }, [])
-
+    
     return (
         <div>
             <nav className="nav bar navbar-expand-lg navbar-light bg-light p-2">
@@ -100,11 +112,6 @@ const App = () => {
                                     Your Account
                                 </Link>
                             </li>,
-                            <li key="your-activity" className="nav-item">
-                                <Link to='/all-activity' className="nav-link">
-                                    All Activity
-                                </Link>
-                            </li>,
                             <li key="user-setting" className="nav-item">
                                 <Link to='/account-setting' className="nav-link">
                                     Account Setting
@@ -138,20 +145,22 @@ const App = () => {
                                 </Link>
                             </li>
                         ])}
-                        <Link to="/create-activity">
-                        </Link>
+                        {activities && 
+                            <Link to='/all-activity' className="nav-link"></Link>
+                        }
+                        <Link to="/create-activity"></Link>
                     </ul>
                     <input 
                         className="form-control search" 
                         type="search" 
-                        placeholder="Search" 
+                        placeholder="Search activities" 
                         aria-label="Search"
-                    />
+                        onChange={(e) => setSearch(e.target.value)}/>
                     <button 
                         className="btn btn-outline-success my-2 my-sm-0" 
                         type="submit"
-                    > 
-                    Search 
+                        onClick={() => getActivities()}> 
+                        Search 
                     </button>
             </div>
         </nav>
@@ -179,9 +188,6 @@ const App = () => {
                 <Route path="/signup">
                     <Register/>
                 </Route>
-                <Route path="/all-activity">
-                    <Activities/>
-                </Route>
                 <Route path="/activities/:id">
                     <Activity 
                     user={user}
@@ -195,6 +201,9 @@ const App = () => {
                 </Route>
                 <Route path="/other/user/:username">
                     <User otherUser={otherUser}/>
+                </Route>
+                <Route path="/all-activity">
+                    <Activities activities={activities}/>
                 </Route>
             </Switch>
         </div>

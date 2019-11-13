@@ -1,22 +1,9 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-const Activities = () => {
-    const [activities, setActivities] = useState(null)
-
-    const getActivity = () => {
-        axios
-            .get('http://localhost:3001/api/activities')
-            .then(response => setActivities(response.data.activities))
-            .catch(console.log)
-    }
-
-    useEffect(() => {
-        getActivity()
-    }, [])
-    
+const Activities = ({
+    activities
+}) => {
     return (
         <div className="p-3">
             <div>
@@ -51,6 +38,5 @@ const Activities = () => {
             </div>
         </div>
     )
-
 } 
 export default Activities

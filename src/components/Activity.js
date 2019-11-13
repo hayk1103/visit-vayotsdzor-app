@@ -89,7 +89,7 @@ const Activity = ({
                                     </p> 
                                 </div>
                             </div>
-                            {creator && (
+                            {creator && activity.creator !== user._id && (
                                 <div className="d-flex mt-5">
                                     <p className="mr-5 mt-2"> Created by: </p>
                                     <img 

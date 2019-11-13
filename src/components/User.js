@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const User = ({ otherUser }) => {
+    console.log(otherUser)
     const [activities, setActivities] = useState(null)
 
     const getActivity = () => {
@@ -19,7 +20,7 @@ const User = ({ otherUser }) => {
         
     return (
         <div id="account-page">
-            {otherUser && 
+            {otherUser &&
                 <div>
                     <div className="user-bg p-2">
                         <div className="w-50 d-flex justify-content-between">
@@ -40,7 +41,7 @@ const User = ({ otherUser }) => {
                     </div>
                     <div className="m-4">
                         <div className="d-flex justify-content-around">
-                            <h3> {otherUser.username} activties </h3>
+                            <h3> {otherUser.username}'s activties </h3>
                         </div>
                         {activities && 
                             activities.map((activity, index) => {
