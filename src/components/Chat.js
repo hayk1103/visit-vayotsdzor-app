@@ -1,30 +1,44 @@
 import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
+import axios from 'axios'
 
-const Chat = () => {
+const Chat = ({ user }) => {
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState('')
     const [username, setUsername] = useState('')
     const [socket, setSocket] = useState(null)
 
     const initSockets = () => {
-        const socket = io.connect('172.20.10.2:3001')
+        const socket = io.connect('http://localhost:3001')
         socket.on('new message', (data) => setMessages(messages => [data, ...messages]))
         setSocket(socket)
     }
 
     const getMessages = () => {
-        // axios.get('http://localhost:3001/api/messages')
+        axios.get(`http://localhost:3001/api/messages`, {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+            .then(response => {
+                setMessages(response.data.message)
+                console.log(response.data.message)
+            })
+            .catch(console.log)
     }
-
+    // const addMessages = () => {
+    //     axios
+    //         .post('http://localhost:3001/api/messages', {message, user}, {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+    //         .then(response => {
+    //             console.log(response.data)
+    //         })
+    //         .catch(console.log)
+    // }
     const submit = () => {
-        socket.emit('message', { message, username })
+        socket.emit('message', { message, user, username })
         setMessage('')
     }
-
+    console.log(user)
     const onKeyUp = (e) => {
         if (e.keyCode === 13) {
             submit()
+            // addMessages()
         }
     }
 
