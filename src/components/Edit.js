@@ -53,7 +53,7 @@ const Edit = ({
                             <label 
                                 className="input-group-text label-text"
                                 htmlFor="title">
-                                Activity title
+                                Title
                             </label>
                         </div>
                         <input 
@@ -70,7 +70,7 @@ const Edit = ({
                             <label 
                                 className="input-group-text label-text" 
                                 htmlFor="location">
-                                Activity location
+                                Location
                             </label>
                         </div>
                         <input 
@@ -101,7 +101,7 @@ const Edit = ({
                             <label 
                                 className="input-group-text label-text" 
                                 htmlFor="description">
-                                Activity description
+                                Description
                             </label>
                         </div>
                         <textarea 
@@ -117,7 +117,7 @@ const Edit = ({
                             <label 
                                 className="input-group-text label-text" 
                                 htmlFor="hashtags">
-                                Activity hashtags
+                                Hashtags
                             </label>
                         </div>
                         <input 
@@ -132,7 +132,7 @@ const Edit = ({
                             <label 
                                 className="input-group-text label-text" 
                                 htmlFor="category">
-                                Activity hashtags
+                                    Category
                             </label>
                         </div>
                         <select 

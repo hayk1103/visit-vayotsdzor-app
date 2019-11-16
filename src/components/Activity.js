@@ -11,19 +11,14 @@ const Activity = ({
  })  => {
     const { id } = useParams()
     const history = useHistory()
-    const [creatorId, setCreatorId] = useState(null)
     const [activity, setActivity] = useState(null)
-    const [creator, setCreator] = useState(null)
     const [showEditButton, setShowEditButton] = useState(false)
 
 
     const getOneActivity = () => {
         axios
             .get(`http://localhost:3001/api/activity?activityId=${id}`, { headers: {'Authorization': localStorage.token }})
-            .then((response) => {
-                setActivity(response.data.activity)
-                setCreatorId(response.data.activity.creator)
-            })
+            .then((response) => setActivity(response.data.activity))
             .catch(console.log)
     }
 
@@ -33,23 +28,10 @@ const Activity = ({
             .then(() => history.push('/user'))
             .catch(console.log)
     }
-    const getCreater = (id) => {
-        axios
-            .get(`http://localhost:3001/api/other/user?id=${id}`, {headers: {'Authorization': localStorage.token}})
-            .then(response => {
-                setCreator(response.data.user)
-                setOtherUser(response.data.user)
-            })
-            .catch(console.log)
-    }
   
     useEffect(() => {
         getOneActivity()
     }, [])
-
-    useEffect(() => {
-        getCreater(creatorId)
-    }, [creatorId])
 
     return ( 
         <div>
@@ -89,17 +71,15 @@ const Activity = ({
                                     </p> 
                                 </div>
                             </div>
-                            {creator && activity.creator !== user._id && (
-                                <div className="d-flex mt-5">
-                                    <p className="mr-5 mt-2"> Created by: </p>
-                                    <img 
-                                        src={`http://localhost:3001/${creator.avatar}`}
-                                        style={{width:40, height:40, borderRadius: 100}}/>
-                                    <Link to={`/other/user/${creator.username}`} className="ml-5"> 
-                                        {creator.username} 
-                                    </Link>
-                                </div>
-                            )}
+                            <div className="d-flex mt-5">
+                                <p className="mr-5 mt-2"> Created by: </p>
+                                <img 
+                                    src={`http://localhost:3001/${activity.creator.avatar}`}
+                                    style={{width:40, height:40, borderRadius: 100}}/>
+                                <Link to={`/other/user/${activity.creator.username}`} className="ml-5"> 
+                                    {activity.creator.username} 
+                                </Link>
+                            </div>
                             {user && activity.creator === user._id  && (
                                 <div className="mt-5">
                                     <button 
