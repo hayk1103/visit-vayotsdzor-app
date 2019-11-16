@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Activities from './Activities'
+import Map from './Map'
 
 import axios from 'axios'
 
@@ -19,9 +20,7 @@ const Home = () => {
     return (
         <div>
             <div className="d-flex justify-content-center mt-4">
-                <h1>
-                    Here must be Map.
-                </h1>
+                <Map/>
             </div>
             <Activities 
             activities={activities}/>
