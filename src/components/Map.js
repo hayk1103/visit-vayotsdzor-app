@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactMapboxGl, { Layer, Feature, Popup, Marker } from 'react-mapbox-gl'
 
 const MapBox = ReactMapboxGl({
-    accessToken: 'pk.eyJ1IjoiZ29namhhbiIsImEiOiJjazMxa3pvZngwN3BrM21wYm82bm1pemxuIn0.ko7L3kEaYcYYMSzUTkAVcA'
+    accessToken: ''
 })
 
 const Map = () => {
