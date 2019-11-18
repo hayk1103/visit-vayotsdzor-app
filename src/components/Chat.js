@@ -18,23 +18,22 @@ const Chat = ({ user }) => {
         axios.get(`http://localhost:3001/api/messages`, {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
             .then(response => {
                 setMessages(response.data.message)
-                console.log(response.data.message)
             })
             .catch(console.log)
     }
-    // const addMessages = () => {
-    //     axios
-    //         .post('http://localhost:3001/api/messages', {message, user}, {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
-    //         .then(response => {
-    //             console.log(response.data)
-    //         })
-    //         .catch(console.log)
-    // }
-    const submit = () => {
-        socket.emit('message', { message, user, username })
-        setMessage('')
+    const addMessages = () => {
+        axios
+            .post('http://localhost:3001/api/messages', {message}, {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(console.log)
     }
-    console.log(user)
+    const submit = () => {
+        socket.emit('message', { message, username })
+        setMessage('')
+        addMessages()
+    }
     const onKeyUp = (e) => {
         if (e.keyCode === 13) {
             submit()
@@ -48,16 +47,10 @@ const Chat = ({ user }) => {
     }, [])
 
     return (
-        <div id="chat">
-            <div className="container">
+            <div className="container chat-card shadow">
                 <div className="row">
                     <div className="col-md-12">
                         <h1>Welcome to our chat</h1>
-                        <input 
-                            placeholder="Username"
-                            className="form-control"
-                            value={username}
-                            onChange={e => setUsername(e.target.value)}/>
                         <input 
                             placeholder="New Message"
                             value={message}
@@ -67,7 +60,7 @@ const Chat = ({ user }) => {
                         <ul className="list-group">
                             {messages.map((message, i) => (
                                 <li key={`message-${i}`} className="list-group-item">
-                                    <small>{message.username}</small><br/>
+                                    <small>{ message.userId ? message.userId.username : user.username}</small><br/>
                                     {message.message}
                                 </li>
                             ))}
@@ -75,7 +68,6 @@ const Chat = ({ user }) => {
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
 

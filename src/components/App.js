@@ -28,6 +28,7 @@ const App = () => {
     const [otherUser, setOtherUser ] = useState(null)
     const [search, setSearch] = useState(null)
     const [activities, setActivity] = useState(null)
+    const [showChat, setShowChat] = useState(false)
     const history = useHistory()
     const location = useLocation()
 
@@ -121,9 +122,20 @@ const App = () => {
 
                         {user ? ([
                             <li key="chat" className="nav-item">
-                                <Link to='/chat' className="nav-link">
+                                {/* <Link to='/chat' className="nav-link"> */}
+                                <a 
+                                href="#"
+                                className="nav-link"
+                                onClick={(e) => {
+                                    console.log(showChat)
+                                    e.preventDefault()
+                                    showChat ? setShowChat(false) : setShowChat(true)
+                                    // setShowChat(true)
+                                    console.log(showChat)
+                                }}>
                                     Chat
-                                </Link>
+                                </a>
+                                {/* </Link> */}
                             </li>,
                             <li key="logout" className="nav-item">
                                 <a 
@@ -196,9 +208,8 @@ const App = () => {
                 <Route path="/create-activity">
                     <CreateActivity/>
                 </Route>
-                <Route path="/chat">
-                    <Chat />
-                </Route>
+                {/* <Route path="/chat">
+                </Route> */}
                 <Route path="/other/user/:username">
                     <User otherUser={otherUser}/>
                 </Route>
@@ -206,6 +217,10 @@ const App = () => {
                     <Activities activities={activities}/>
                 </Route>
             </Switch>
+                { showChat && (
+                    <Chat user={user}/>
+                )
+                }
         </div>
     </div>
     )

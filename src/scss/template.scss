@@ -125,5 +125,13 @@ body {
     width: 150px;
     border-radius: 10px;
 }
-
-
+.chat-card {
+    width: 500px;
+    height: 300px !important;
+    position: absolute;
+    top: 8%;
+    left: 30%;
+    z-index: 1;
+    border-radius: 15px;    
+    padding: 15px;
+}

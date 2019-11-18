@@ -1,7 +1,7 @@
 import React, { useState } from 'react' 
 import axios from 'axios'
 
-const Edit = ({ 
+const EditActivity = ({ 
         activity, 
         setShowEditButton,
         getOneActivity
@@ -159,4 +159,4 @@ const Edit = ({
         </div>
     )
 }
-export default Edit
+export default EditActivity

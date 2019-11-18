@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react' 
 import { useParams, useHistory, Link } from 'react-router-dom'
 
-import Edit from './Edit'
+import EditActivity from './EditActivity'
 
 import axios from 'axios'
 
@@ -32,7 +32,8 @@ const Activity = ({
     useEffect(() => {
         getOneActivity()
     }, [])
-
+    console.log(activity)
+    console.log(user)
     return ( 
         <div>
             {activity && 
@@ -80,7 +81,7 @@ const Activity = ({
                                     {activity.creator.username} 
                                 </Link>
                             </div>
-                            {user && activity.creator === user._id  && (
+                            {console.log(user), user && activity.creator._id === user._id  && (
                                 <div className="mt-5">
                                     <button 
                                         className="btn btn-primary mr-4" 
@@ -99,7 +100,7 @@ const Activity = ({
                 </div>
                 }
                 {showEditButton && (
-                        <Edit 
+                        <EditActivity 
                         activity={activity}
                         setShowEditButton={setShowEditButton}
                         getOneActivity={getOneActivity}/>
