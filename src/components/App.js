@@ -25,7 +25,6 @@ const withRouter = Component => (props) => {
 
 const App = () => {
     const [user, setUser] = useState(null)
-    const [otherUser, setOtherUser ] = useState(null)
     const [search, setSearch] = useState(null)
     const [activities, setActivity] = useState(null)
     const [showChat, setShowChat] = useState(false)
@@ -97,83 +96,80 @@ const App = () => {
             <div 
                 className="collapse navbar-collapse" 
                 id="navbarSupportedContent">
-                    <ul className="navbar-nav ml-5">
-                        <li className="nav-item active">
-                            <Link to='/' className="nav-link">
-                                Home 
-                                <span className="sr-only">
-                                    (current)
-                                </span>
+                <ul className="navbar-nav ml-5">
+                    <li className="nav-item active">
+                        <Link to='/' className="nav-link">
+                            Home 
+                            <span className="sr-only">
+                                (current)
+                            </span>
+                        </Link>
+                    </li>
+                    
+                    {user && ([
+                        <li key="your-account" className="nav-item active">
+                            <Link to='/user' className="nav-link">
+                                Your Account
+                            </Link>
+                        </li>,
+                        <li key="user-setting" className="nav-item">
+                            <Link to='/account-setting' className="nav-link">
+                                Account Setting
                             </Link>
                         </li>
-                        
-                        {user && ([
-                            <li key="your-account" className="nav-item active">
-                                <Link to='/user' className="nav-link">
-                                    Your Account
-                                </Link>
-                            </li>,
-                            <li key="user-setting" className="nav-item">
-                                <Link to='/account-setting' className="nav-link">
-                                    Account Setting
-                                </Link>
-                            </li>
-                        ])}
+                    ])}
 
-                        {user ? ([
-                            <li key="chat" className="nav-item">
-                                {/* <Link to='/chat' className="nav-link"> */}
-                                <a 
+                    {user ? ([
+                        <li key="chat" className="nav-item">
+                            <a 
+                            href="#"
+                            className="nav-link"
+                            onClick={(e) => {
+                                console.log(showChat)
+                                e.preventDefault()
+                                showChat ? setShowChat(false) : setShowChat(true)
+                                console.log(showChat)
+                            }}>
+                                Chat
+                            </a>
+                        </li>,
+                        <li key="logout" className="nav-item">
+                            <a 
+                                className="nav-link" 
                                 href="#"
-                                className="nav-link"
-                                onClick={(e) => {
-                                    console.log(showChat)
-                                    e.preventDefault()
-                                    showChat ? setShowChat(false) : setShowChat(true)
-                                    // setShowChat(true)
-                                    console.log(showChat)
-                                }}>
-                                    Chat
-                                </a>
-                                {/* </Link> */}
-                            </li>,
-                            <li key="logout" className="nav-item">
-                                <a 
-                                    className="nav-link" 
-                                    href="#"
-                                    onClick={logout}>
-                                        Logout
-                                </a>
-                            </li>
-                        ]) : ([
-                            <li key="sign-in" className="nav-item">
-                                <Link to='/signin' className="nav-link">
-                                    Sign in
-                                </Link>
-                            </li>,
-                            <li key="sign-up" className="nav-item">
-                                <Link to='/signup' className="nav-link">
-                                    Sign up
-                                </Link>
-                            </li>
-                        ])}
-                        {activities && 
-                            <Link to='/all-activity' className="nav-link"></Link>
-                        }
-                        <Link to="/create-activity"></Link>
-                    </ul>
-                    <input 
-                        className="form-control search" 
-                        type="search" 
-                        placeholder="Search activities" 
-                        aria-label="Search"
-                        onChange={(e) => setSearch(e.target.value)}/>
-                    <button 
-                        className="btn btn-outline-success my-2 my-sm-0" 
-                        type="submit"
-                        onClick={() => getActivities()}> 
-                        Search 
-                    </button>
+                                onClick={logout}>
+                                    Logout
+                            </a>
+                        </li>
+                    ]) : ([
+                        <li key="sign-in" className="nav-item">
+                            <Link to='/signin' className="nav-link">
+                                Sign in
+                            </Link>
+                        </li>,
+                        <li key="sign-up" className="nav-item">
+                            <Link to='/signup' className="nav-link">
+                                Sign up
+                            </Link>
+                        </li>
+                    ])}
+                    {activities && 
+                        <Link to='/all-activity' className="nav-link"></Link>
+                    }
+                    <Link to="/create-activity"></Link>
+                </ul>
+                <input 
+                    className="form-control search" 
+                    type="search" 
+                    placeholder="Search activities" 
+                    aria-label="Search"
+                    onChange={(e) => setSearch(e.target.value)}/>
+                <button 
+                    className="btn btn-outline-success my-2 my-sm-0" 
+                    type="submit"
+                    onClick={() => getActivities()}> 
+                    Search 
+                </button>
             </div>
         </nav>
         <div>
@@ -202,25 +198,21 @@ const App = () => {
                 </Route>
                 <Route path="/activities/:id">
                     <Activity 
-                    user={user}
-                    setOtherUser={setOtherUser}/>
+                    user={user}/>
                 </Route>
                 <Route path="/create-activity">
                     <CreateActivity/>
                 </Route>
-                {/* <Route path="/chat">
-                </Route> */}
                 <Route path="/other/user/:username">
-                    <User otherUser={otherUser}/>
+                    <User/>
                 </Route>
                 <Route path="/all-activity">
                     <Activities activities={activities}/>
                 </Route>
             </Switch>
-                { showChat && (
+                {showChat && (
                     <Chat user={user}/>
-                )
-                }
+                )}
         </div>
     </div>
     )

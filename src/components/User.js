@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 import axios from 'axios'
 
-const User = ({ otherUser }) => {
-    console.log(otherUser)
+const User = () => {
+    const { username } = useParams()
     const [activities, setActivities] = useState(null)
+    const [user, setUser] = useState(null)
 
     const getActivity = () => {
         axios
@@ -13,39 +14,45 @@ const User = ({ otherUser }) => {
             .then(response => setActivities(response.data.activities))
             .catch(console.log)
     }
-
+    const getUser = () => {
+        axios
+            .get(`http://localhost:3001/api/other/user?username=${username}`)
+            .then((response) => setUser(response.data.user))
+            .catch(console.log)
+    }
     useEffect(() => {
         getActivity()
+        getUser()
     }, [])
         
     return (
         <div id="account-page">
-            {otherUser &&
+            {user &&
                 <div>
                     <div className="user-bg p-2">
                         <div className="w-50 d-flex justify-content-between">
                             <img 
-                                src={`http://localhost:3001/${otherUser.avatar}`} 
+                                src={`http://localhost:3001/${user.avatar}`} 
                                 className="card-img rounded" />
                             <div>
-                                <h2> { otherUser.username } </h2>
-                                <p> { otherUser.fullName }  </p>
-                                {otherUser.aboutMe && (
-                                    <p> { otherUser.aboutMe } </p>
+                                <h2> { user.username } </h2>
+                                <p> { user.fullName }  </p>
+                                {user.aboutMe && (
+                                    <p> { user.aboutMe } </p>
                                 )}
-                                {otherUser.interests && (
-                                    <p> { otherUser.interests } </p>
+                                {user.interests && (
+                                    <p> { user.interests } </p>
                                 )}
                             </div>
                         </div>
                     </div>
                     <div className="m-4">
                         <div className="d-flex justify-content-around">
-                            <h3> {otherUser.username}'s activties </h3>
+                            <h3> {user.username}'s activties </h3>
                         </div>
                         {activities && 
                             activities.map((activity, index) => {
-                                if(activity.creator === otherUser._id) {
+                                if(activity.creator === user._id) {
                                     return (
                                         <div key={`activity-${index}`} className="shadow mt-3 all-activity p-2">
                                             <img src={`http://localhost:3001/${activity.image}`}  alt="activity"/>

@@ -5,10 +5,7 @@ import EditActivity from './EditActivity'
 
 import axios from 'axios'
 
-const Activity = ({ 
-    user,
-    setOtherUser
- })  => {
+const Activity = ({ user })  => {
     const { id } = useParams()
     const history = useHistory()
     const [activity, setActivity] = useState(null)
