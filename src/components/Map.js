@@ -7,11 +7,15 @@ const MapBox = ReactMapboxGl({
 
 const Map = () => {
     const [marker, setMarker] = useState(null)
+    const [center, setCenter] = useState(null)
 
     const onMapClick = (e, data) => {
         setMarker(data.lngLat)
+        // console.log(data)
     }
-
+    navigator.geolocation.getCurrentPosition((position) => {
+        setCenter(position.coords)
+      });
     return (
         <MapBox
             style="mapbox://styles/mapbox/streets-v9"
@@ -22,9 +26,20 @@ const Map = () => {
                 height: '500px',
                 width: '100%'
             }}>
+                {center && (
+                    <Marker 
+                        coordinates={[center.longitude, center.latitude] }
+                        onClick={() => {
+                            // 
+                        }}>
+                        <div className="dot">
+
+                        </div>
+                    </Marker>
+                )}
                 {marker && (
                     <Marker 
-                        coordinates={[marker.lng, marker.lat]}
+                        coordinates={[marker.lng, marker.lat] }
                         onClick={() => {
                             // 
                         }}>

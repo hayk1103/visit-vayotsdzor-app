@@ -127,11 +127,16 @@ body {
 }
 .chat-card {
     width: 500px;
-    height: 300px !important;
     position: absolute;
     top: 8%;
     left: 30%;
     z-index: 1;
     border-radius: 15px;    
     padding: 15px;
+}
+.dot {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: rgb(0, 0, 255);
 }
