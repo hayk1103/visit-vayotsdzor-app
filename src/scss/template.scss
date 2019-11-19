@@ -1,0 +1,137 @@
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+$primary-color: red;
+$bg-color: #F1F2F3;
+
+body {
+    margin: 0;
+    background-color: $bg-color;
+}
+
+.form-control {
+    border-radius: 10px;
+    height: 43px;
+}
+.icon{
+    height: 43px;
+    margin-right: 15px;
+    padding: 8px 10px;
+    border-radius: 50% !important;
+    background-color: #fff;
+}
+.btn-warning {
+    background-color: #FDC55F !important; 
+    height: 43px;
+    border-radius: 5%;
+    width: 85px;
+}
+.line {
+    border: 1px solid black;
+}
+.font-weight-bold {
+    color: #9682DA;
+    font-size: large;
+    padding: 5px;
+}
+
+.input-group-text {
+    background-color: #fff !important;
+    border-radius: 15%;
+}
+.icon-color {
+    color: #9682DA;
+}
+.btn-sign {
+    border-color: #9682DA ;
+    color: #9682DA;
+    width: 130px;
+}
+
+.btn-sign:hover {
+    background-color: #9682DA;
+    color: white;
+}
+#sign{
+    width: 100%;
+}
+.link {
+    color: #9682DA;
+}
+.link:hover {
+    color: rgb(112, 93, 175);
+}
+
+.search {
+    width: 30%;
+    margin-right: 15px;
+    margin-left: 30px;
+}
+.activity{
+    background-color: #ec9b3b;
+}
+.show-all {
+    border: 3px solid gray;
+    width: 100px;
+}
+.all {
+    height: 100%;
+    width: 100%;
+    margin-top: 10px;
+}
+.bg-color {
+    color: rgb(233, 173, 61);
+}
+.small-img {
+    height: 80px;
+    width: 80px;
+    border-radius: 10%;
+}
+.text-muted {
+    font-size: 20px;
+    color: #ec9b3b !important;
+}
+.nav-part {
+    width: 30%;
+    padding: 15px;
+}
+.navbar {
+    width: 100%;
+    z-index: 1;
+}
+.col-md-8 {
+    width: 500px;
+}
+.user-bg {
+    background-color: #D5D5EE;
+}
+.close {
+    position: absolute;
+    top: 4%;
+    right: 4%;
+    font-size: 20px;
+}
+.show-activity {
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    z-index: 1;
+    width: 800px !important;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: rgb(206, 198, 233);
+
+}
+.label-text {
+    width: 150px;
+    border-radius: 10px;
+}
+.chat-card {
+    width: 500px;
+    height: 300px !important;
+    position: absolute;
+    top: 8%;
+    left: 30%;
+    z-index: 1;
+    border-radius: 15px;    
+    padding: 15px;
+}

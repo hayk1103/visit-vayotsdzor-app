@@ -1,0 +1,33 @@
+// #account-page {
+    .user-bg {
+        display: flex;
+        justify-content: center;
+        margin-top: 2%;
+
+        img {
+            height: 180px;
+            width: 200px;
+            border-radius: 15%;
+        }
+    }
+    
+    .all-activity {
+        background-color: #e7c3bb;
+        display: flex;
+        justify-content: space-around;
+        border-radius: 20px;
+
+        img {
+            vertical-align: middle;
+            height: 100px;
+            width: 120px;
+            border-radius: 5%;
+        }
+    }
+
+    .activity-body {
+        display: flex;
+        justify-content: space-around;
+        width: 65%;
+    }
+// }
