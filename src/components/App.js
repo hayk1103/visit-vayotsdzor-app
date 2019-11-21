@@ -26,7 +26,6 @@ const withRouter = Component => (props) => {
 const App = () => {
     const [user, setUser] = useState(null)
     const [search, setSearch] = useState(null)
-    const [activities, setActivity] = useState(null)
     const [showChat, setShowChat] = useState(false)
     const history = useHistory()
     const location = useLocation()
@@ -58,16 +57,6 @@ const App = () => {
             history.push('/')
         }
     }
-    const getActivities = () => {
-        console.log(search)
-        axios   
-            .get(`http://localhost:3001/api/activity/search?search=${search}`)
-            .then(response => {
-                setActivity(response.data.data)
-                history.push('/all-activity')
-            })
-            .catch(console.log)
-        }
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -78,7 +67,7 @@ const App = () => {
     return (
         <div>
             <nav className="nav bar navbar-expand-lg navbar-light bg-light p-2">
-            <div className="mr-5 ml-3">
+            <div className="mr-5 ml-3 logo mr-3">
                 <Link to="/" className="navbar-brand">
                     Visit Vayots dzor
                 </Link>
@@ -94,7 +83,7 @@ const App = () => {
                 </button>
             </div>
             <div 
-                className="collapse navbar-collapse" 
+                className="collapse navbar-collapse justify-content-around links" 
                 id="navbarSupportedContent">
                 <ul className="navbar-nav ml-5">
                     <li className="nav-item active">
@@ -105,33 +94,27 @@ const App = () => {
                             </span>
                         </Link>
                     </li>
-                    
-                    {user && ([
+                    {user ? ([
                         <li key="your-account" className="nav-item active">
                             <Link to='/user' className="nav-link">
                                 Your Account
                             </Link>
                         </li>,
-                        <li key="user-setting" className="nav-item">
-                            <Link to='/account-setting' className="nav-link">
-                                Account Setting
-                            </Link>
-                        </li>
-                    ])}
-
-                    {user ? ([
                         <li key="chat" className="nav-item">
                             <a 
                             href="#"
                             className="nav-link"
                             onClick={(e) => {
-                                console.log(showChat)
                                 e.preventDefault()
                                 showChat ? setShowChat(false) : setShowChat(true)
-                                console.log(showChat)
                             }}>
                                 Chat
                             </a>
+                        </li>,
+                        <li key="user-setting" className="nav-item">
+                            <Link to='/account-setting' className="nav-link">
+                                Account Setting
+                            </Link>
                         </li>,
                         <li key="logout" className="nav-item">
                             <a 
@@ -153,23 +136,23 @@ const App = () => {
                             </Link>
                         </li>
                     ])}
-                    {activities && 
-                        <Link to='/all-activity' className="nav-link"></Link>
-                    }
                     <Link to="/create-activity"></Link>
                 </ul>
-                <input 
-                    className="form-control search" 
-                    type="search" 
-                    placeholder="Search activities" 
-                    aria-label="Search"
-                    onChange={(e) => setSearch(e.target.value)}/>
-                <button 
-                    className="btn btn-outline-success my-2 my-sm-0" 
-                    type="submit"
-                    onClick={() => getActivities()}> 
-                    Search 
-                </button>
+                <div className="d-flex  search ">
+                    <input 
+                        className="form-control mr-3" 
+                        type="search" 
+                        placeholder="Search activities" 
+                        aria-label="Search"
+                        onChange={(e) => setSearch(e.target.value)}/>
+                    <Link to={`search/${search}`} className="nav-link">
+                        <button 
+                            className="btn btn-outline-success my-2 my-sm-0" 
+                            type="submit"> 
+                            Search 
+                        </button>
+                    </Link>
+                </div>
             </div>
         </nav>
         <div>
@@ -206,12 +189,15 @@ const App = () => {
                 <Route path="/other/user/:username">
                     <User/>
                 </Route>
-                <Route path="/all-activity">
-                    <Activities activities={activities}/>
+                <Route path="/search/:search">
+                    <Activities 
+                    setSearch={setSearch}/>
                 </Route>
             </Switch>
                 {showChat && (
-                    <Chat user={user}/>
+                    <Chat 
+                    user={user}
+                    setShowChat={setShowChat}/>
                 )}
         </div>
     </div>

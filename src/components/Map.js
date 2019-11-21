@@ -15,7 +15,7 @@ const Map = () => {
     }
     navigator.geolocation.getCurrentPosition((position) => {
         setCenter(position.coords)
-      });
+    })
     return (
         <MapBox
             style="mapbox://styles/mapbox/streets-v9"

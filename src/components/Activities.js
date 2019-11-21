@@ -1,9 +1,27 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const Activities = ({
     activities
 }) => {
+
+    const [activity, setActivity] = useState(null)
+    const { search } = useParams()
+
+    if(!activities) activities = activity
+    
+    const getSearchedActivities = () => {
+        axios   
+            .get(`http://localhost:3001/api/activity/search?search=${search}`)
+            .then(response => {
+                setActivity(response.data.data)
+            })
+            .catch(console.log)
+        }
+        useEffect(() => {
+            if(search) getSearchedActivities()
+        }, [])
     return (
         <div className="p-3">
             <div>

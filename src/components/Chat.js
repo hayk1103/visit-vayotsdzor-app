@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
 import axios from 'axios'
 
-const Chat = ({ user }) => {
+const Chat = ({ user, setShowChat }) => {
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState('')
-    const [username, setUsername] = useState('')
     const [socket, setSocket] = useState(null)
 
     const initSockets = () => {
@@ -30,7 +29,7 @@ const Chat = ({ user }) => {
             .catch(console.log)
     }
     const submit = () => {
-        socket.emit('message', { message, username })
+        socket.emit('message', { message })
         setMessage('')
         addMessages()
     }
@@ -40,34 +39,40 @@ const Chat = ({ user }) => {
             // addMessages()
         }
     }
-
     useEffect(() => {
         getMessages()
         initSockets()
     }, [])
 
     return (
-            <div className="container chat-card shadow">
-                <div className="row">
-                    <div className="col-md-12">
+        <div className="container chat-card shadow">
+            <div className="row">
+                <div className="col-md-12">
+                    <div className="d-flex justify-content-between">
                         <h1>Welcome to our chat</h1>
-                        <input 
-                            placeholder="New Message"
-                            value={message}
-                            onChange={e => setMessage(e.target.value)}
-                            className="form-control mt-2 mb-2"
-                            onKeyUp={onKeyUp}/>
-                        <ul className="list-group">
-                            {messages.map((message, i) => (
-                                <li key={`message-${i}`} className="list-group-item">
-                                    <small>{ message.userId ? message.userId.username : user.username}</small><br/>
-                                    {message.message}
-                                </li>
-                            ))}
-                        </ul>
+                        <button 
+                            className="close-chat btn"
+                            onClick={() => setShowChat(false)}>
+                            X 
+                        </button>
                     </div>
+                    <input 
+                        placeholder="New Message"
+                        value={message}
+                        onChange={e => setMessage(e.target.value)}
+                        className="form-control mt-2 mb-2"
+                        onKeyUp={onKeyUp}/>
+                    <ul className="list-group">
+                        {messages.map((message, i) => (
+                            <li key={`message-${i}`} className="list-group-item">
+                                <small>{ message.userId ? message.userId.username : user.username}</small><br/>
+                                {message.message}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
+        </div>
     )
 }
 
