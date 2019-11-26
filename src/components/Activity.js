@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react' 
 import { useParams, useHistory, Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 import EditActivity from './EditActivity'
 
@@ -10,6 +12,7 @@ const Activity = ({ user })  => {
     const history = useHistory()
     const [activity, setActivity] = useState(null)
     const [showEditButton, setShowEditButton] = useState(false)
+    const [like, setLike] = useState(false)
 
 
     const getOneActivity = () => {
@@ -26,11 +29,21 @@ const Activity = ({ user })  => {
             .catch(console.log)
     }
   
+    const updateLiked = (id) => {
+        axios
+            .put(`http://localhost:3001/api/activity?activityId=${id}`, {like}, {headers: {'Authorization': localStorage.token}})
+            .then(response => { 
+                console.log(response.data.liked)
+                console.log(activity)
+            })
+            .catch(console.log)
+    }
     useEffect(() => {
         getOneActivity()
     }, [])
-    console.log(activity)
-    console.log(user)
+    useEffect(() => {
+        getOneActivity()
+    }, [like])
     return ( 
         <div>
             {activity && 
@@ -64,9 +77,17 @@ const Activity = ({ user })  => {
                                     <p className="mb-4"> 
                                         {activity.location} 
                                     </p>
-                                    <p>
-                                        likes: {activity.likesCount} 
-                                    </p> 
+                                    <div>
+                                    <FontAwesomeIcon 
+                                        icon={faHeart} 
+                                        className={like ? 'icon-color-liked' : 'icon-color'}
+                                        onClick={() => {
+                                            like ? setLike(false) : setLike(true)
+                                            updateLiked(activity._id)
+                                        }}
+                                        /> 
+                                        <span> {activity.likesCount} </span> 
+                                    </div>
                                 </div>
                             </div>
                             <div className="d-flex mt-5">
@@ -78,7 +99,7 @@ const Activity = ({ user })  => {
                                     {activity.creator.username} 
                                 </Link>
                             </div>
-                            {console.log(user), user && activity.creator._id === user._id  && (
+                            {user && activity.creator._id === user._id  && (
                                 <div className="mt-5">
                                     <button 
                                         className="btn btn-primary mr-4" 

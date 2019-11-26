@@ -12,13 +12,6 @@ body {
     border-radius: 10px;
     height: 43px;
 }
-.icon{
-    height: 43px;
-    margin-right: 15px;
-    padding: 8px 10px;
-    border-radius: 50% !important;
-    background-color: #fff;
-}
 .btn-warning {
     background-color: #FDC55F !important; 
     height: 43px;
@@ -38,8 +31,14 @@ body {
     background-color: #fff !important;
     border-radius: 15%;
 }
-.icon-color {
+.icon-color-liked {
     color: #9682DA;
+    // color: #fff;
+}
+.icon-color {
+    // color: #9682DA;
+    // border: 1px solid #9682DA; 
+    color: #fff;
 }
 .btn-sign {
     border-color: #9682DA ;

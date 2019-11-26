@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
 const Activities = ({
@@ -38,9 +40,9 @@ const Activities = ({
                             </div>
                             <div>
                                 <p> { activity.createdAt.split('T')[0] } </p>
-                                <i className="material-icons bg-color"> 
-                                    favorite_border 
-                                </i> 
+                                <FontAwesomeIcon 
+                                        icon={faHeart} 
+                                        className='icon-color'/>  
                                 <span> { activity.likesCount } </span>
                             </div>
                             <div >
