@@ -24,12 +24,12 @@ const Home = () => {
         <div>
             <div className="d-flex justify-content-center mt-4">
                 <Map 
-                setCurrentLoc={setCurrentLoc}
-                setCreateActivity={setCreateActivity}/>
+                    setCurrentLoc={setCurrentLoc}
+                    setCreateActivity={setCreateActivity}
+                    activities={activities}/>
             </div>
-            <Activities 
-            activities={activities}/>
-            { console.log(currentLoc), createActivity && (
+            <Activities activities={activities}/>
+            {createActivity && (
                 <div>
                     <CreateActivity currentLoc={currentLoc}/>
                 </div>
