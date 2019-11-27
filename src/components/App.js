@@ -136,7 +136,6 @@ const App = () => {
                             </Link>
                         </li>
                     ])}
-                    <Link to="/create-activity"></Link>
                 </ul>
                 <div className="d-flex  search ">
                     <input 
@@ -158,7 +157,7 @@ const App = () => {
         <div>
             <Switch>
                 <Route exact path="/">
-                    <Home/>
+                    <Home />
                 </Route>
                 {user && ([
                     <Route key="user" path="/user">
@@ -183,11 +182,8 @@ const App = () => {
                     <Activity 
                     user={user}/>
                 </Route>
-                <Route path="/create-activity">
-                    <CreateActivity/>
-                </Route>
                 <Route path="/other/user/:username">
-                    <User/>
+                    <User user={user}/>
                 </Route>
                 <Route path="/search/:search">
                     <Activities 

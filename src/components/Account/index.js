@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import './index.scss'
 
@@ -66,11 +68,6 @@ const Account = ({
             <div className="m-4">
                 <div className="d-flex justify-content-around">
                     <h3> Your activty </h3>
-                    <button 
-                        className="btn btn-primary"
-                        onClick={() => history.push('/create-activity')}> 
-                        Create Activity 
-                    </button>
                 </div>
                 {activities && 
                     activities.map((activity, index) => {
@@ -81,13 +78,13 @@ const Account = ({
                                     <div className="activity-body">
                                         <div>
                                             <p> {activity.title} </p>
-                                            <span> { activity.location } </span>
                                         </div>
                                         <div>
                                             <p> { activity.createdAt.split('T')[0] } </p>
-                                            <i className="material-icons bg-color"> 
-                                                favorite_border 
-                                            </i> 
+                                            <FontAwesomeIcon 
+                                                icon={faHeart} 
+                                                className= 'icon-color' 
+                                            />
                                             <span> { activity.likesCount } </span>
                                         </div>
                                         <div>

@@ -74,10 +74,6 @@ const Activity = ({ user })  => {
                                    
                                 </div>
                                 <div>
-                                    <p className="mb-4"> 
-                                        {activity.location} 
-                                    </p>
-                                    <div>
                                     <FontAwesomeIcon 
                                         icon={faHeart} 
                                         className={like ? 'icon-color-liked' : 'icon-color'}
@@ -87,7 +83,6 @@ const Activity = ({ user })  => {
                                         }}
                                         /> 
                                         <span> {activity.likesCount} </span> 
-                                    </div>
                                 </div>
                             </div>
                             <div className="d-flex mt-5">

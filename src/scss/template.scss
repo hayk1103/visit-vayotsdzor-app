@@ -151,3 +151,46 @@ body {
     display: flex;
     justify-content: center;
 }
+.select-loc {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    height: 200px;
+    width: 600px;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 20px;
+}
+.current {
+    position: absolute;
+    top: 15%;
+    right: 5%;
+    // height: 50px !important;
+    // width: 50px !important;
+    font-size: 20px;
+    .icon-size {
+        cursor: pointer;
+        margin-top: 5px;
+        margin-left: 5px;
+        font-size: 40px;
+        color: rgb(233, 210, 111);
+    }
+}
+.loc-text {
+    width: 200px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 30px;
+}
+.loc {
+    width: 83.5%;
+}
+.actvity-bg {
+    width: 1000px;
+    height: 600px;
+    background-color: #fff;
+    position: absolute;
+    top: 7%;
+    left: 14%;
+    z-index: 2;
+}

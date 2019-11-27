@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart, faPlusCircle, faCheck } from '@fortawesome/free-solid-svg-icons'
+
 import axios from 'axios'
 
-const CreateActivity = () => {
+const CreateActivity = ({ currentLoc }) => {
+    console.log(currentLoc)
     const history = useHistory()
 
     const [activity, setActivity] = useState({
         title: '',
-        location: '',
+        location: currentLoc,
         image: '',
         description: '',
         hastag: '',
@@ -32,8 +37,8 @@ const CreateActivity = () => {
     }
 
     return ( 
-        <div className="d-flex justify-content-center">
-            <div className="container">
+        <div className="d-flex justify-content-center actvity-bg">
+            <div className="container ">
                 <div className="d-flex justify-content-center mt-5"> 
                     <h3> Create Your Activity </h3>
                 </div>
@@ -43,7 +48,7 @@ const CreateActivity = () => {
                             <label 
                                 className="input-group-text label-text"
                                 htmlFor="title">
-                                Activity title
+                                Title
                             </label>
                         </div>
                         <input 
@@ -59,16 +64,16 @@ const CreateActivity = () => {
                             <label 
                                 className="input-group-text label-text"
                                 htmlFor="location">
-                                Activity location
+                                Location
                             </label>
                         </div>
-                        <input 
-                            type="text" 
-                            className="form-control" 
-                            placeholder="Location" 
-                            id="location"
-                            onChange={(e) =>  setActivity({...activity, location: e.target.value})}
-                            required/>
+                        <span className="list-group-item loc">
+                            Location added
+                            <FontAwesomeIcon 
+                                icon={faCheck}
+                                style={{fontSize: 20, marginLeft: 12}}
+                            /> 
+                          </span>
                     </div>
                     <div className="input-group mb-3">
                         <div className="custom-file" >
@@ -92,7 +97,7 @@ const CreateActivity = () => {
                             <label 
                                 className="input-group-text label-text"
                                 htmlFor="desription">
-                                Activity description
+                                Description
                             </label>
                         </div>                       
                          <input 
@@ -108,7 +113,7 @@ const CreateActivity = () => {
                             <label 
                                 className="input-group-text label-text"
                                 htmlFor="hashtags">
-                                Activity hashtags
+                                Hashtags
                             </label>
                         </div>
                         <input 
@@ -123,7 +128,7 @@ const CreateActivity = () => {
                             <label 
                                 className="input-group-text label-text"
                                 htmlFor="category">
-                                Activity category
+                                Category
                             </label>
                         </div>
                         <select 

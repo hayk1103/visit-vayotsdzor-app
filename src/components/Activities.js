@@ -33,10 +33,6 @@ const Activities = ({
                         <div className="activity-body">
                             <div>
                                 <p> {activity.title}  </p>
-                                <i className="material-icons bg-color active-icon "> 
-                                    room 
-                                </i> 
-                                <span> { activity.location } </span>
                             </div>
                             <div>
                                 <p> { activity.createdAt.split('T')[0] } </p>
